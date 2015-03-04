@@ -5,9 +5,12 @@ block content
         img.logo(src="images/home_logo.png")
         div.col-xs-12
             h1= title
+            button.btn.btn-raised(ng-click="sendCommand(9)") Home
+            button.btn.btn-raised(ng-click="sendCommand(10)") Off
     each item, index in data
         if index == 0 || index == 3 || index == 6
             div.row.img-row
-        div.col-xs-4
-            a(href= apiUrl + item.id)
-                img.ink-image.img-responsive(src= item.img)
+        if index < 9
+            div.col-xs-4(ng-click="sendCommand(#{item.id})", ng-class="{'shadow-z-5': active == #{item.id}, 'active': active == #{item.id}}")
+                a()
+                    img.ink-image.img-responsive(src= item.img)
