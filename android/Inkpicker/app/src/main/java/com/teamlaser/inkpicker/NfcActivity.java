@@ -148,7 +148,7 @@ public class NfcActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                textView.setText("Position read: " + result);
+                textView.setText("Default position: " + result);
             }
             readPosition = Integer.parseInt(result);
             okButton.setVisibility(View.VISIBLE);
