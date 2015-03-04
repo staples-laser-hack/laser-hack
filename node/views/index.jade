@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div.row.text-center
+        img.logo(src="images/home_logo.png")
+        div.col-xs-12
+            h1= title
+    each item, index in data
+        if index == 0 || index == 3 || index == 6
+            div.row.img-row
+        div.col-xs-4
+            a(href= apiUrl + item.id)
+                img.ink-image.img-responsive(src= item.img)

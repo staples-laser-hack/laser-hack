@@ -1,9 +1,9 @@
 {
-  "name": "node",
-  "version": "0.0.0",
+  "name": "inkpicker",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "DEBUG=node nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.12.0",
@@ -12,6 +12,7 @@
     "express": "~4.12.0",
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
+    "request": "^2.53.0",
     "serve-favicon": "~2.2.0"
   }
 }
