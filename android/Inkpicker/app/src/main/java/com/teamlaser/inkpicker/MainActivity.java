@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         int position = intent.getIntExtra(NfcActivity.POSITION_EXTRA, 9);
-        if (position < 9) {
+        if (position < 10) {
             //valid position received in intent
             makeGetRequest(position);
         }
