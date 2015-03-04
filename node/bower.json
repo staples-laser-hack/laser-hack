@@ -1,0 +1,25 @@
+{
+  "name": "inkpicker",
+  "version": "0.0.1",
+  "homepage": "https://github.com/staples-laser-hack/laser-hack",
+  "authors": [
+    "Evan LeCompte <evan.lecompte@staples.com>"
+  ],
+  "description": "Proof of concept for Staples ink wall laser picker",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.2.2",
+    "bootstrap": "~3.3.2"
+  }
+}
