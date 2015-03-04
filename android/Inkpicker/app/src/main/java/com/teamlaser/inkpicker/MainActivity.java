@@ -2,15 +2,24 @@ package com.teamlaser.inkpicker;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.Path;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ImageView image0;
     private ImageView image1;
     private ImageView image2;
@@ -20,7 +29,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private ImageView image6;
     private ImageView image7;
     private ImageView image8;
+    private ProgressBar progressBar;
+//    private static final String BASE_URI = "http://10.29.172.162:3000";
+    private static final String BASE_URI = "http://10.29.173.85";
 
+    public interface InkPickService {
+        @GET("/inkpicker/{tag}")
+        void pickInk(
+                @Path("tag") int tag,
+                Callback<InkPickResponse> callback
+        );
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +54,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         image6 = (ImageView) findViewById(R.id.img6);
         image7 = (ImageView) findViewById(R.id.img7);
         image8 = (ImageView) findViewById(R.id.img8);
+        progressBar = (ProgressBar) findViewById(R.id.progressCircle);
+        progressBar.setVisibility(View.GONE);
 
         image0.setTag(0);
         image1.setTag(1);
@@ -60,7 +81,30 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int tag = (int)v.getTag();
-        Toast.makeText(this, tag+"", Toast.LENGTH_SHORT).show();
+        makeGetRequest(tag);
+    }
+
+
+    private void makeGetRequest(int tag) {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(BASE_URI)
+                .build();
+        InkPickService service = restAdapter.create(InkPickService.class);
+        progressBar.setVisibility(View.VISIBLE);
+        service.pickInk(tag, new Callback<InkPickResponse>() {
+            @Override
+            public void success(InkPickResponse inkPickResponse, Response response) {
+                Log.d(TAG, "Response status: "+inkPickResponse.getStatus());
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.getUrl());
+                error.printStackTrace();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
