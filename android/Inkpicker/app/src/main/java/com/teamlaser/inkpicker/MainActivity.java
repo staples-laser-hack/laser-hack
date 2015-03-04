@@ -1,5 +1,6 @@
 package com.teamlaser.inkpicker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private ImageView image7;
     private ImageView image8;
     private ProgressBar progressBar;
+    private ImageView lastSelected;
 //    private static final String BASE_URI = "http://10.29.172.162:3000";
     private static final String BASE_URI = "http://10.29.173.85";
 
@@ -76,11 +78,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         image6.setOnClickListener(this);
         image7.setOnClickListener(this);
         image8.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        int position = intent.getIntExtra(NfcActivity.POSITION_EXTRA, 9);
+        if (position < 9) {
+            //valid position received in intent
+            makeGetRequest(position);
+        }
     }
 
     @Override
     public void onClick(View v) {
         int tag = (int)v.getTag();
+        if (lastSelected != null) {
+            lastSelected.setBackgroundColor(0xffffff);
+        }
+        lastSelected = (ImageView) v;
         makeGetRequest(tag);
     }
 
@@ -96,6 +109,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             public void success(InkPickResponse inkPickResponse, Response response) {
                 Log.d(TAG, "Response status: "+inkPickResponse.getStatus());
                 progressBar.setVisibility(View.GONE);
+                if (lastSelected != null) {
+                    lastSelected.setBackgroundColor(getResources().getColor(R.color.selectedColor));
+                }
             }
 
             @Override
