@@ -16,7 +16,14 @@ a {
 .img-row {
   padding-top: 35px;
 }
+  
+.img-row a {
+}
 
 .ink-image {
-  padding: 10px;
+  padding: 40px 20px;
+}
+
+.active {
+  border: 1px solid blue;
 }

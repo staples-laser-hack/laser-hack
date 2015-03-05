@@ -1,12 +1,32 @@
 doctype html
-html
+html(ng-app="inkpicker")
   head
     title= title
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/bootstrap-material-design/dist/css/material-wfont.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+  body(ng-controller='inkCtrl')
     block content
     script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
     script(type='text/javascript', src='/bower_components/bootstrap-material-design/dist/js/material.js')
+    script(type='text/javascript', src='/bower_components/angular/angular.js')
+
+    script.
+        var apiUrl = #{apiUrl};
+        angular.module('inkpicker', [
+        ]).
+        controller('inkCtrl', function($scope, $http) {
+            console.log('foo');
+            $scope.active = undefined;
+            $scope.sendCommand = function(id) {
+                $http.get(apiUrl + id).success(function(res, status) {
+                    $scope.active = id;
+                    console.log('get success');
+                }).
+                error(function(error) {
+                    console.log('get error', error);
+                });
+                console.log(id);
+            }
+        });
