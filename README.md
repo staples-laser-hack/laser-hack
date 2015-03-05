@@ -9,16 +9,16 @@ The Raspberry Pi relayed this information to an AMTEL USB peripheral, which tran
 ![The ink wall](/pics/Ink wall.jpg?raw=true)
 
 ##The laser setup##
-![The laser shines bright](/pics/Laser1.jpg?raw=true)
+![The laser shines bright](/pics/Laser1.jpg?raw=true "The laser shines bright")
 
-![Hot glue, clamps and a ladder to set it up](/pics/Laser2.jpg?raw=true)
+![Hot glue, clamps and a ladder to set it up](/pics/Laser2.jpg?raw=true "Hot glue, clamps and a ladder to set it up")
 
 ##Android app##
-![This page is displayed when a NFC tag with the default position as data is read](/pics/NFC read home page.png?raw=true)
+![This page is displayed when a NFC tag with the default position as data is read](/pics/NFC read home page.png?raw=true "This page is displayed when a NFC tag with the default position as data is read")
 
-![Simple interface for picking an item in the grid](/pics/Pick an ink.png?raw=true)
+![Simple interface for picking an item in the grid](/pics/Pick an ink.png?raw=true "Simple interface for picking an item in the grid")
 
 ##Mobile version of responsive website##
 
-![Layout similar to the Android app](/pics/Mobile website.png?raw=true)
+![Layout similar to the Android app](/pics/Mobile website.png?raw=true "Layout similar to the Android app")
 
