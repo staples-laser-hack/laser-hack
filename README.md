@@ -6,19 +6,19 @@ The Android app or website sends GET requests to a node.js server with a positio
 The Raspberry Pi relayed this information to an AMTEL USB peripheral, which translated the information to a hardware level for the two servos and the laser attached to them.
 
 ##The ink wall##
-![The ink wall](laser-hack/pics/Ink wall.jpg?raw=true)
+![The ink wall](/pics/Ink wall.jpg?raw=true)
 
 ##The laser setup##
-![The laser shines bright](laser-hack/pics/Laser1.jpg?raw=true)
+![The laser shines bright](/pics/Laser1.jpg?raw=true)
 
-![Hot glue, clamps and a ladder to set it up](laser-hack/pics/Laser2.jpg?raw=true)
+![Hot glue, clamps and a ladder to set it up](/pics/Laser2.jpg?raw=true)
 
 ##Android app##
-![This page is displayed when a NFC tag with the default position as data is read](laser-hack/pics/NFC read home page.png?raw=true)
+![This page is displayed when a NFC tag with the default position as data is read](/pics/NFC read home page.png?raw=true)
 
-![Simple interface for picking an item in the grid](laser-hack/pics/Pick an ink.png?raw=true)
+![Simple interface for picking an item in the grid](/pics/Pick an ink.png?raw=true)
 
 ##Mobile version of responsive website##
 
-![Layout similar to the Android app](laser-hack/pics/Mobile website.png?raw=true)
+![Layout similar to the Android app](/pics/Mobile website.png?raw=true)
 
