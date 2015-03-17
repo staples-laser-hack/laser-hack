@@ -17,7 +17,6 @@ html(ng-app="inkpicker")
         angular.module('inkpicker', [
         ]).
         controller('inkCtrl', function($scope, $http) {
-            console.log('foo');
             $scope.active = undefined;
             $scope.sendCommand = function(id) {
                 $http.get(apiUrl + id).success(function(res, status) {
@@ -25,7 +24,7 @@ html(ng-app="inkpicker")
                     console.log('get success');
                 }).
                 error(function(error) {
-                    console.log('get error', error);
+                    console.log(error);
                 });
                 console.log(id);
             }

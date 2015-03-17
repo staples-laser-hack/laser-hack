@@ -1,21 +1,24 @@
+var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var _ = require('lodash');
+var config = require('../../config');
+var url = require('url');
 
 var data = [
-    {id: 0, make: "hp", led: 255, locationx: 1960, locationy: 2260, img: "images/i0.jpg"},
-    {id: 1, make: "hp", led: 255, locationx: 1960, locationy: 2200, img: "images/i1.jpg"},
-    {id: 2, make: "hp", led: 255, locationx: 1935, locationy: 2150, img: "images/i2.jpg"},
-    {id: 3, make: "hp", led: 255, locationx: 2040, locationy: 2250, img: "images/i3.jpg"},
-    {id: 4, make: "hp", led: 255, locationx: 2040, locationy: 2200, img: "images/i4.jpg"},
-    {id: 5, make: "hp", led: 255, locationx: 2040, locationy: 2150, img: "images/i5.jpg"},
-    {id: 6, make: "hp", led: 255, locationx: 2150, locationy: 2250, img: "images/i6.jpg"},
-    {id: 7, make: "hp", led: 255, locationx: 2150, locationy: 2200, img: "images/i7.jpg"},
-    {id: 8, make: "hp", led: 255, locationx: 2150, locationy: 2150, img: "images/i8.jpg"},
-    {id: 9, make: "hp", led: 255, locationx: 1800, locationy: 2200, img: ""}, // Start position
-    {id: 10, make: "hp", led: 0, locationx: 1800, locationy: 2200, img: ""} // Off position
+    {id: 0, make: "hp", led: 255, preset: 0, img: "images/i0.jpg"},
+    {id: 1, make: "hp", led: 255, preset: 1, img: "images/i1.jpg"},
+    {id: 2, make: "hp", led: 255, preset: 2, img: "images/i2.jpg"},
+    {id: 3, make: "hp", led: 255, preset: 3, img: "images/i3.jpg"},
+    {id: 4, make: "hp", led: 255, preset: 4, img: "images/i4.jpg"},
+    {id: 5, make: "hp", led: 255, preset: 5, img: "images/i5.jpg"},
+    {id: 6, make: "hp", led: 255, preset: 6, img: "images/i6.jpg"},
+    {id: 7, make: "hp", led: 255, preset: 7, img: "images/i7.jpg"},
+    {id: 8, make: "hp", led: 255, preset: 8, img: "images/i8.jpg"},
+    {id: 9, make: "hp", led: 255, preset: 9, img: ""}, // Start position
+    {id: 10, make: "hp", led: 0, preset: 10, img: ""} // Off position
 ];
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
@@ -25,29 +28,35 @@ router.get('/', function(req, res, next) {
   });
 });
 
+
+// calculate the laser server url
+var laserUrl = url.format({protocol: 'http', host: config.laserServer, pathname: config.laserPath});
+console.log(laserUrl)
+
 router.get('/inkpicker/:id', function(req, res, next) {
     // receive item id
     console.log('inkpicker id = ', req.params.id);
 
-    // pass item id to laser
+    // fetch item from data array
     var item = _.find(data, function(element) {
         return element.id == req.params.id;
     });
 
+    // fire request to laser
     request({
-        uri: 'http://10.29.172.245/cgi-bin/laser.pl',
+        uri: laserUrl,
         method: 'GET',
-        qs: {time: 50, led: item.led, chan1: item.locationx, chan2: item.locationy}
-        
+        qs: {time: 50, led: item.led, preset: item.preset},
+        timeout: 500,
+        time: true
     }, function(error, response, body) {
         if (error || res.statusCode != 200) {
-            console.log('Error communicating with laser server', error);
+            console.log('Error communicating with the LASER!', error);
+            return res.status(500).send('error communicating with laser ' + error);
         }
-        console.log('body', body);
-        console.log('path', response.request.path)
 
         // now tell the client we're done
-        res.send(JSON.stringify({"status": "OK"}));
+        res.send(JSON.stringify({"status": "OK", "elapsed-time": res.elapsedTime}));
     });
 });
 
