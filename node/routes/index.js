@@ -6,19 +6,20 @@ var config = require('../../config');
 var url = require('url');
 
 var data = [
-    {id: 1, make: "hp", led: 255, img: "images/i0.jpg"},
-    {id: 2, make: "hp", led: 255, img: "images/i1.jpg"},
-    {id: 3, make: "hp", led: 255, img: "images/i2.jpg"},
-    {id: 4, make: "hp", led: 255, img: "images/i3.jpg"},
-    {id: 5, make: "hp", led: 255, img: "images/i4.jpg"},
-    {id: 6, make: "hp", led: 255, img: "images/i5.jpg"},
-    {id: 7, make: "hp", led: 255, img: "images/i6.jpg"},
-    {id: 8, make: "hp", led: 255, img: "images/i7.jpg"},
-    {id: 9, make: "hp", led: 255, img: "images/i8.jpg"},
+    {id: 1, led: 255, img: "images/i0.jpg"},
+    {id: 2, led: 255, img: "images/i1.jpg"},
+    {id: 3, led: 255, img: "images/i2.jpg"},
+    {id: 4, led: 255, img: "images/i3.jpg"},
+    {id: 5, led: 255, img: "images/i4.jpg"},
+    {id: 6, led: 255, img: "images/i5.jpg"},
+    {id: 7, led: 255, img: "images/i6.jpg"},
+    {id: 8, led: 255, img: "images/i7.jpg"},
+    {id: 9, led: 255, img: "images/i8.jpg"},
+    {id: 16, led: 255}, // Start position
+    {id: 17, led: 0} // Off position
 
-    {id: 16, make: "hp", led: 255, img: ""}, // Start position
-    {id: 17, make: "hp", led: 0, img: ""} // Off position
 ];
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,7 +33,7 @@ router.get('/', function(req, res, next) {
 
 // calculate the laser server url
 var laserUrl = url.format({protocol: 'http', host: config.laserServer, pathname: config.laserPath});
-console.log(laserUrl)
+console.log('laser server url: ', laserUrl);
 
 router.get('/inkpicker/:id', function(req, res, next) {
     // receive item id
